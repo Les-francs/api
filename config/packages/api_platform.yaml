@@ -9,3 +9,6 @@ api_platform:
              apiKey:
                 name: Authorization
                 type: header
+    graphql:
+        graphql_playground:
+            enabled: true
