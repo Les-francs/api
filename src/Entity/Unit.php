@@ -9,7 +9,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UnitRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    attributes: ["security" => "is_granted('ROLE_USER')"]
+)]
 class Unit
 {
     #[ORM\Id]

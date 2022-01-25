@@ -7,7 +7,9 @@ use App\Repository\ControlRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ControlRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    attributes: ["security" => "is_granted('ROLE_USER')"]
+)]
 class Control
 {
     #[ORM\Id]

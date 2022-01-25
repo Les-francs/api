@@ -7,7 +7,9 @@ use App\Repository\UnitUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UnitUserRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    attributes: ["security" => "is_granted('ROLE_USER')"]
+)]
 class UnitUser
 {
     #[ORM\Id]
