@@ -36,6 +36,9 @@ class Unit
     #[ORM\OneToMany(mappedBy: 'unit', targetEntity: UnitUser::class)]
     private $unitUsers;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $pict;
+
     public function __construct()
     {
         $this->unitUsers = new ArrayCollection();
@@ -120,6 +123,18 @@ class Unit
                 $unitUser->setUnit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPict(): ?string
+    {
+        return $this->pict;
+    }
+
+    public function setPict(string $pict): self
+    {
+        $this->pict = $pict;
 
         return $this;
     }
