@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -24,6 +26,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string')]
     private $password;
+
+    #[ORM\ManyToOne(targetEntity: Weapon::class, inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $weapon;
+
+    #[ORM\Column(type: 'integer')]
+    private $influence;
+
+    #[ORM\ManyToOne(targetEntity: House::class, inversedBy: 'users')]
+    private $house;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UnitUser::class)]
+    private $unitUsers;
+
+    public function __construct()
+    {
+        $this->unitUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -93,5 +113,71 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getWeapon(): ?Weapon
+    {
+        return $this->weapon;
+    }
+
+    public function setWeapon(?Weapon $weapon): self
+    {
+        $this->weapon = $weapon;
+
+        return $this;
+    }
+
+    public function getInfluence(): ?int
+    {
+        return $this->influence;
+    }
+
+    public function setInfluence(int $influence): self
+    {
+        $this->influence = $influence;
+
+        return $this;
+    }
+
+    public function getHouse(): ?House
+    {
+        return $this->house;
+    }
+
+    public function setHouse(?House $house): self
+    {
+        $this->house = $house;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UnitUser[]
+     */
+    public function getUnitUsers(): Collection
+    {
+        return $this->unitUsers;
+    }
+
+    public function addUnitUser(UnitUser $unitUser): self
+    {
+        if (!$this->unitUsers->contains($unitUser)) {
+            $this->unitUsers[] = $unitUser;
+            $unitUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUnitUser(UnitUser $unitUser): self
+    {
+        if ($this->unitUsers->removeElement($unitUser)) {
+            // set the owning side to null (unless already changed)
+            if ($unitUser->getUser() === $this) {
+                $unitUser->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
