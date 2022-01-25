@@ -1,0 +1,27 @@
+{
+  "sqltools.connections": [
+    {
+      "name": "Container database",
+      "driver": "MariaDB",
+      "server": "localhost",
+      "previewLimit": 50,
+      "port": 3306,
+      "database": "mariadb",
+      "username": "root",
+      "password": "mariadb"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MariaDB",
+      "name": "back Les francs",
+      "database": "mariadb",
+      "username": "mariadb",
+      "password": "mariadb"
+    }
+  ]
+}
