@@ -44,10 +44,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(targetEntity: House::class, inversedBy: 'users')]
     private $house;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UnitUser::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UnitUser::class, cascade: ["persist"])]
     private $unitUsers;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: EventUser::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: EventUser::class, cascade: ["persist"])]
     private $eventUsers;
 
     public function __construct()
