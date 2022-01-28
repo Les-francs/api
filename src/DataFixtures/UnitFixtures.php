@@ -6,10 +6,11 @@ use App\Entity\Era;
 use App\Entity\TypeUnit;
 use App\Entity\Unit;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class UnitFixtures extends Fixture implements DependentFixtureInterface
+class UnitFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -547,5 +548,10 @@ class UnitFixtures extends Fixture implements DependentFixtureInterface
             TypeUnitFixtures::class,
             EraFixtures::class
         ];
+    }
+    
+    public static function getGroups(): array
+    {
+        return ['admin', 'dev'];
     }
 }

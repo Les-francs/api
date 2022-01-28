@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Weapon;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class WeaponFixtures extends Fixture
+class WeaponFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -32,5 +33,10 @@ class WeaponFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+    
+    public static function getGroups(): array
+    {
+        return ['admin', 'dev'];
     }
 }
