@@ -25,8 +25,8 @@ class EventUser
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $participation;
+    #[ORM\Column(type: 'boolean', length: 255, nullable: true)]
+    private $participation = null;
 
     public function getId(): ?int
     {
@@ -57,12 +57,12 @@ class EventUser
         return $this;
     }
 
-    public function getParticipation(): ?string
+    public function getParticipation(): ?bool
     {
         return $this->participation;
     }
 
-    public function setParticipation(string $participation): self
+    public function setParticipation(?bool $participation): self
     {
         $this->participation = $participation;
 
