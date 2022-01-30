@@ -5,10 +5,16 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EventUserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: EventUserRepository::class)]
 #[ApiResource(
     attributes: ["security" => "is_granted('ROLE_USER')"]
+)]
+#[UniqueEntity(
+    fields: ['event', 'user'],
+    errorPath: 'event',
+    message: 'This event is already in use on that user.',
 )]
 class EventUser
 {
