@@ -24,6 +24,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface, Fixture
         $users = [
             [
                 'username' => 'Vilsafur',
+                'email' => 'vilsafur@gmail.com',
+                'discord' => '278525340048031744',
                 'influence' => 700,
                 'house' => 0,
                 'weapon' => 0,
@@ -42,6 +44,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface, Fixture
             $user = new User();
             
             $user->setUsername($u['username'])
+                 ->setEmail($u['email'])
+                 ->setDiscord($u['discord'])
                  ->setInfluence($u['influence'])
                  ->setHouse($houses[$u['house']])
                  ->setWeapon($weapons[$u['weapon']])

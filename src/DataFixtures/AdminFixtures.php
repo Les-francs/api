@@ -23,6 +23,8 @@ class AdminFixtures extends Fixture implements DependentFixtureInterface, Fixtur
               ->setInfluence(0)
               ->setPassword('$2y$13$2nSvul3tyhhRxSaH8/ozJuUIdepIlT/S/QOb9kRu7KprlJconwM..')
               ->setWeapon($weapon)
+              ->setEmail("admin@admin.com")
+              ->setDiscord("00000000000000")
         ;
 
         $manager->persist($admin);

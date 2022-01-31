@@ -25,8 +25,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    #[ApiProperty(identifier: true)]
     private $username;
+
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private $email;
+
+    #[ORM\Column(type: 'string', length: 19, unique: true)]
+    #[ApiProperty(identifier: true)]
+    private $discord;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
@@ -73,6 +79,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getDiscord(): ?string
+    {
+        return $this->discord;
+    }
+
+    public function setDiscord(string $discord): self
+    {
+        $this->discord = $discord;
+
+        return $this;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -80,7 +110,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
 
     /**
