@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ApiResource(
     attributes: ["security" => "is_granted('ROLE_USER')"]
 )]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,9 +36,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
-
-    #[ORM\Column(type: 'string')]
-    private $password;
 
     #[ORM\ManyToOne(targetEntity: Weapon::class, inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
@@ -110,7 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->discord;
     }
 
     /**
@@ -128,21 +125,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }
