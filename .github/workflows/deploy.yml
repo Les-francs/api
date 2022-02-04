@@ -1,0 +1,25 @@
+# Nom de notre workflow
+name: "Build and deploy docker"
+
+# Événements sur lesquels il doit être déclenché
+on:
+  push:         # <- Déclenché lorsque l'on pousse du code...
+    branches:
+      - master  # <- ... mais seulement sur la branche "master"
+
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: debian-latest
+    steps:
+      - name: Deploy to Docker Host
+        uses: wshihadeh/docker-deployment-action@v1
+        with:
+          remote_docker_host: lesfrancs@vps256982.ovh.net
+          ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+          ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+          deployment_mode: docker-compose
+          args: up -d
+          pre_deployment_command_args: 'bin/console doctrine:migrations:migrate'
+          docker_prune: 'true'
+          pull_images_first: 'true'
