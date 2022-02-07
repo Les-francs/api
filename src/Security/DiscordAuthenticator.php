@@ -64,7 +64,7 @@ class DiscordAuthenticator extends AbstractAuthenticator
 
       return new SelfValidatingPassport(
         new UserBadge($user->id, function ($userIdentifier) {
-            return $this->userRepository->findOneBy(['email' => $userIdentifier]);
+            return $this->userRepository->findOneBy(['discord' => $userIdentifier]);
         }));
     }
 
